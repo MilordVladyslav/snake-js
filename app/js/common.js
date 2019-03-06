@@ -1,90 +1,23 @@
 window.onload = () => {
     'use srtict';
 
-    let canvas = document.getElementById('canvasId');
-    let ctx = canvas.getContext('2d');
-
-    let xStroke = 0;
-    let yStroke = 0;
-
-    let coordinates = [
-        // [0, 0]
-    ];
-
-    let xAmount = canvas.width / 10;
-    let yAmount = canvas.height / 10;
-
-    for (let i = 0; i < yAmount; i++) {
-        for (let j = 0; j < xAmount; j++) {
-            coordinates.push([xStroke, yStroke]);
-            // ctx.rect(xStroke, yStroke, 10, 10);
-            xStroke += 10;
-        }
-
-        xStroke = 0;
-        yStroke += 10;
-    }
-
-    ctx.strokeStyle = 'red';
-
-    let Apple = {
-
-        x: null,
-        y: null,
-
-        generateLocation : function () {
-
-            this.x = Number(Math.floor(Math.random() * 100 ) + '0');
-            this.y = Number(Math.floor(Math.random() * 100 ) + '0');
-        }
-
-    };
-
-
-    Apple.generateLocation();
-
-    function SnakeGenerate () {
-        for (i = 0; i < 10; i ++) {
-            snake.push(i);
-        }
-    }
-
-    function GotApple() {
-        SnakeGenerate();
-        Apple.generateLocation();
-        ctx.rect(Apple.x, Apple.y, 10, 10);
-        ctx.stroke();
-    }
-
-    ctx.rect(Apple.x, Apple.y, 10, 10);
-    ctx.stroke();
-
-
-
-    let x = 0;
-    let y = 0;
-
-    let up;
-    let right;
-    let down;
-    let left;
-
-    let speed = 50;
-
-    let xHistory = [0];
-    let yHistory = [0];
-
+    PaintHealth();
 
     function GameOverChecking(x, y) {
 
         for (let i in xHistory) {
             if(xHistory[i] === x && yHistory[i] === y) {
-                console.log('Game over');
-                StopAll();
-            } else if (x > canvas.width || x < 0 || y  < 0 || y > canvas.height) {
-                console.log('Game Over');
-                StopAll();
-                return true;
+                health -= 1;
+                PaintHealth();
+                Reset();
+                Movement('Right');
+                break;
+            } else if (x >= canvas.width || x < 0 || y  < 0 || y >= canvas.height) {
+                health -= 1;
+                PaintHealth();
+                Reset();
+                Movement('Right');
+                break;
             }
         }
 
@@ -92,190 +25,92 @@ window.onload = () => {
 
 
 
-    function Up() {
-        up = setInterval(() => {
-
-            y -= 10;
-
-            GameOverChecking(x, y);
-
-            ctx.rect(x, y, 10, 10);
-
-            AddHistory();
-
-            ClearHistory();
-
-            if(x === Apple.x && y === Apple.y) {
-                console.log('Great! Go to walk along the streets');
-                GotApple();
-            }
-
-            for(let i = 0; i <= snake.length; i ++) {
-                ctx.rect(xHistory[xHistory.length - i], yHistory[yHistory.length - i], 10, 10);
-            }
-
-            ctx.rect(Apple.x, Apple.y, 10, 10);
-
-            Paint();
-
-        }, speed);
-    }
-
-
-    snake = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
-
-    function ClearHistory() {
-        if(xHistory.length > snake.length) {
-            xHistory.shift();
-            // console.log(xHistory);
-        }
-        if(yHistory.length > snake.length) {
-            yHistory.shift();
-            // console.log(yHistory);
+    function ComparsionWithApplePosition(apple) {
+        if(x === apple.x && y === apple.y) {
+            score += 1;
+            GotApple(apple);
         }
     }
 
-    function AddHistory() {
-        yHistory.push(y);
-        xHistory.push(x);
-    }
+    function Movement (direction) {
+        movement = setInterval(() => {
 
-    function Right () {
-        right = setInterval(() => {
-
-            x += 10;
+            if(direction === 'Right') {
+                x += 10;
+            } else if (direction === 'Left') {
+                x -= 10;
+            } else if (direction === 'Up') {
+                y -= 10;
+            } else if (direction === 'Down') {
+                y += 10;
+            }
 
             GameOverChecking(x, y);
-
-            ctx.rect(x, y, 10, 10);
 
             AddHistory();
 
             ClearHistory();
 
-            if(x === Apple.x && y === Apple.y) {
-                console.log('Great! Go to walk along the streets');
-                GotApple();
-            }
+            ComparsionWithApplePosition(apple1);
+            ComparsionWithApplePosition(apple2);
+            ComparsionWithApplePosition(apple3);
+            ComparsionWithApplePosition(apple4);
+            ComparsionWithApplePosition(apple5);
 
-            for(let i = 0; i <= snake.length; i ++) {
+            ctx.beginPath();
+
+            for(let i = 0; i <= snake.lengthOfBody; i ++) {
                 ctx.rect(xHistory[xHistory.length - i], yHistory[yHistory.length - i], 10, 10);
             }
 
-            ctx.rect(Apple.x, Apple.y, 10, 10);
 
-            Paint();
+            ctx.strokeStyle = snake.strokeStyle;
+            ctx.lineWidth = "2";
+            ctx.fillStyle = snake.fillStyle;
 
-        }, speed);
-
-    }
-
-    function  Paint() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.stroke();
-        ctx.beginPath();
-    }
-
-    Right();
-
-    function Down() {
-        down = setInterval(() => {
-
-            y += 10;
-
-            GameOverChecking(x, y);
-
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.rect(x, y, 10, 10);
+            ctx.closePath();
+            ctx.stroke();
+            ctx.fill();
 
-            AddHistory();
+            PaintApple(apple1);
+            PaintApple(apple2);
+            PaintApple(apple3);
+            PaintApple(apple4);
+            PaintApple(apple5);
 
-            ClearHistory();
-
-            if(x === Apple.x && y === Apple.y) {
-                console.log('Great! Go to walk along the streets');
-                GotApple();
-            }
-
-            for(let i = 0; i <= snake.length; i ++) {
-                ctx.rect(xHistory[xHistory.length - i], yHistory[yHistory.length - i], 10, 10);
-            }
-
-            ctx.rect(Apple.x, Apple.y, 10, 10);
-
-            Paint();
 
         }, speed);
 
     }
 
-    function Left() {
-        left = setInterval( () => {
-            x -= 10;
-
-            GameOverChecking(x, y);
-
-            ctx.rect(x, y, 10, 10);
-
-            AddHistory();
-
-            ClearHistory();
-
-            if(x === Apple.x && y === Apple.y) {
-                console.log('Great! Go to walk along the streets');
-                GotApple();
-            }
-
-            for(let i = 0; i <= snake.length; i ++) {
-                ctx.rect(xHistory[xHistory.length - i], yHistory[yHistory.length - i], 10, 10);
-            }
-
-            ctx.rect(Apple.x, Apple.y, 10, 10);
-
-            Paint();
-        }, speed);
-    }
-
-    let latestKey;
-
-    function StopAll () {
-        clearInterval(up);
-        clearInterval(right);
-        clearInterval(down);
-        clearInterval(left);
-    }
-
-
-
+    Movement('Right');
 
     window.addEventListener('keyup', (e) => {
 
-        // console.log(latestKey);
-
         if(e.key  !== latestKey) {
 
-            if (e.key === 'ArrowUp' && latestKey != 'ArrowDown') {
-                StopAll();
-                Up();
+            if (e.key === 'ArrowUp' && latestKey !== 'ArrowDown') {
+                clearInterval(movement);
+                Movement('Up');
             }
-
-            if (e.key === 'ArrowRight' && latestKey != 'ArrowLeft') {
-                StopAll();
-                Right();
+            if (e.key === 'ArrowRight' && latestKey !== 'ArrowLeft') {
+                clearInterval(movement);
+                Movement('Right');
             }
-
-            if (e.key === 'ArrowDown' && latestKey != 'ArrowUp') {
-                StopAll();
-                Down();
+            if (e.key === 'ArrowDown' && latestKey !== 'ArrowUp') {
+                clearInterval(movement);
+                Movement('Down');
             }
-
-            if (e.key === 'ArrowLeft' && latestKey != 'ArrowRight') {
-                StopAll();
-                Left();
+            if (e.key === 'ArrowLeft' && latestKey !== 'ArrowRight') {
+                clearInterval(movement);
+                Movement('Left');
             }
-
             latestKey = e.key;
+
         }
+
     });
 
 };

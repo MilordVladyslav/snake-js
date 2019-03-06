@@ -170,3 +170,27 @@ function UnshiftSnake() {
 }
 
 // UnshiftSnake();
+
+
+// let xStroke = 0;
+// let yStroke = 0;
+//
+// let coordinates = [
+//     // [0, 0]
+// ];
+//
+// let xAmount = canvas.width / 10;
+// let yAmount = canvas.height / 10;
+//
+// for (let i = 0; i < yAmount; i++) {
+//     for (let j = 0; j < xAmount; j++) {
+//         coordinates.push([xStroke, yStroke]);
+//         // ctx.rect(xStroke, yStroke, 10, 10);
+//         xStroke += 10;
+//     }
+//
+//     xStroke = 0;
+//     yStroke += 10;
+// }
+
+// ctx.strokeStyle = 'red';
