@@ -1,3 +1,5 @@
+
+//Выводит сердечки в зависимости от количества переменной health
 function PaintHealth() {
     ClearDOM();
     for(let i = 0; i < health; i ++) {
@@ -10,6 +12,7 @@ function PaintHealth() {
     }
 }
 
+//Очищает html от предыдущих значений перед выводом сердечек.
 function ClearDOM() {
     let lifes = document.querySelectorAll('.life');
     for( let i = 0; i< lifes.length; i++) {
@@ -17,6 +20,10 @@ function ClearDOM() {
     }
 }
 
+//Выводит счет.
 function PaintScore() {
-    
+    document.querySelector('#amount');
+    document.querySelector('#amountOver');
+    amount.innerHTML = score;
+    amountOver.innerHTML = score;
 }

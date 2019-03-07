@@ -1,8 +1,4 @@
-//
-// function PaintHealth() {
-//     for(let i  = 0; i < health; i ++) {
-//
-//     }
-// }
-//
-// PaintHealth();
+document.querySelector('#game-over').addEventListener('click', function() {
+    Restart();
+    Movement('Right');
+});

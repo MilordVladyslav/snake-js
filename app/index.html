@@ -12,12 +12,20 @@
 
     <div id="results-wrapper">
 
-        <div class="score">Score: <span class="amount">0 </span></div>
+        <div class="score">Score: <span id="amount">0 </span></div>
     </div>
 
-    <canvas id="canvasId" width="500" height="500">
+    <div class="canvas-wrapper">
+        <div class="game-over" id="game-over">
+            <h2 class="game-over-title">game over</h2>
+            <p>Your result: <span id="amountOver">0</span></p>
+            <button>Restart</button>
+        </div>
 
-    </canvas>
+        <canvas id="canvasId" width="500" height="500">
+
+        </canvas>
+    </div>
 
     <script src="./js/global.js"></script>
     <script src="./js/snake.js"></script>

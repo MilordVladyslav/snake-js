@@ -1,14 +1,26 @@
 let canvas = document.getElementById('canvasId');
 let ctx = canvas.getContext('2d');
+
+//X Y Координаты.
 let x = 0;
 let y = 0;
 
+//Для функции clearInterval. сбрасывает текущий таймер перед запуском новой функции движения.
 let movement;
 
-let speed = 50;
 
-let latestKey = 'ArrowLeft';
+//Регулирует скорость змейки. Чем меньше значение - тем с меньшими интервалами запускается setInterval.
+//Тем быстрее змейка отрисовывается на новой позиции.
+let speed = 200;
+
+//Для предотвращения движения в противоположном направлении
+let latestKey = "ArrayLeft";
+
 
 let health = 3;
 
+//каждое яблоко увеличивает Score на 1
 let score = 0;
+
+//Кейтригер для предотвращения реакции на нажатие двух клавиш почти одновременно.
+let keytrigger = [];

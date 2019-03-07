@@ -24,6 +24,43 @@ body {
   margin: auto;
   margin-top: 50px; }
 
+.canvas-wrapper {
+  position: relative;
+  width: 500px;
+  height: 500px;
+  margin: 0 auto; }
+
+.game-over {
+  outline: 1px solid red;
+  width: 100.3%;
+  height: 100.3%;
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  background: #212121;
+  text-align: center;
+  padding-top: 150px;
+  color: white;
+  line-height: 22px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear; }
+  .game-over h2 {
+    text-transform: uppercase; }
+  .game-over button {
+    margin-top: 50px;
+    font-size: 18px;
+    cursor: pointer; }
+
+.active {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear; }
+
 .score {
   margin-top: 20px;
   float: right;
