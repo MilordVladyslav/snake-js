@@ -4,8 +4,6 @@ window.onload = () => {
     //Рисует сердечки.
     PaintHealth();
 
-
-
     function GameOverChecking(x, y) {
 
         for (let i in xHistory) {
