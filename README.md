@@ -1,10 +1,14 @@
 # snake-js
 
-##JavaScript snake game
+## JavaScript snake game
 
-(Make sure that u have installed node js and gulp)
+### Make sure that you have installed node js and gulp
 
+```
 npm i
-
+```
+```
 gulp watch
+```
 
+![alt text](screenshot.png "Screenshot")
